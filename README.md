@@ -88,5 +88,5 @@ The system synchronizes the color display with a **Vespera light installation** 
 
 # Author
 
-*   Yitong Wu - MSc Electronic & Computer Engineering, HKUST October 2025
+*   Yitong Wu - MSc Connected Environments, UCL October 2025
 *   "Bridging data, color, and atmosphere - an IoT system that visualize the air we breathe."
