@@ -24,8 +24,6 @@ The system synchronizes the color display with a **Vespera light installation** 
 | **Power Supply** | System VCC | **5V** |
 | **Ground** | Common reference | **GND** |
 
-> Button wiring: one leg → **D2**, the other → **GND**; use `pinMode(D2, INPUT_PULLUP)`.
-
 ---
 
 ## Circuit Schematic
