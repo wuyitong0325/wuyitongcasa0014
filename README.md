@@ -30,9 +30,9 @@ The system synchronizes the color display with a **Vespera light installation** 
 <img width="1381" height="818" alt="image" src="https://github.com/user-attachments/assets/1f6d086e-05ef-461e-a6d4-88b4947c599b" />
 
 ## Outlook of the device
-<img width="1381" height="818" alt="image" src="https://github.com/user-attachments/assets/61e2dd39-d815-427d-8bac-7354936cb74c"/>
-<img width="1381" height="818" alt="image" src="https://github.com/user-attachments/assets/49102441-5e91-4290-a850-2c848f9cad99"/>
-<img width="1381" height="818" alt="image" src="https://github.com/user-attachments/assets/0124df07-d20a-4798-baa7-7c7c4ebb1653"/>
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/61e2dd39-d815-427d-8bac-7354936cb74c"/>
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/49102441-5e91-4290-a850-2c848f9cad99"/>
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/0124df07-d20a-4798-baa7-7c7c4ebb1653"/>
 
 ## Software Setup
 
