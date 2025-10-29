@@ -1,35 +1,118 @@
-# wuyitongcasa0014
+🌈 wuyitongcasa0014 · CO₂ Reactive Light System
 
-## Project Description
-For the module assessment, the main function of this device is to measure the concentration of **CO₂** in the surrounding air and indicate the level through different LED colors, which are then reflected on the **Vespera light installation**.  
-The basic design of the device includes a **CO₂ sensor (MQ135)**, an **Arduino WiFi module (MKR WiFi 1010)**, an **8-LED NeoPixel strip**, and a **push-button switch**.
 
----
 
-## Circuit Schematic
+
+
+
+
+
+
+
+📝 Project Overview
+
+This project implements an IoT-based CO₂ indicator system that measures the concentration of CO₂ in the surrounding air using an MQ135 sensor and displays the air quality through a dynamic NeoPixel LED strip.
+The system synchronizes the color display with a Vespera light installation over MQTT, visualizing live environmental data in a responsive light pattern.
+
+⚙️ Hardware Components
+Component	Description	Connection Pin
+🧠 CO₂ Sensor (MQ135)	Analog output for CO₂ concentration	A0
+💡 NeoPixel LED Strip (8-LED)	RGB light strip showing color feedback	D6
+🔘 Push Button Switch	Toggles system ON/OFF	D2
+🔋 Power Supply	System VCC	5V
+⚫ Ground	Common reference	GND
+
+Design of the device shown in the schematic below: ( can also be found in the uploaded file)
 <img width="1381" height="818" alt="image" src="https://github.com/user-attachments/assets/1f6d086e-05ef-461e-a6d4-88b4947c599b" />
 
----
+🧰 Software Setup
+1. Required Libraries
+#include <WiFiNINA.h>
+#include <PubSubClient.h>
+#include <Adafruit_NeoPixel.h>
 
-## Circuit Wiring
 
-| Component | Description | Connection Pin |
-|------------|--------------|----------------|
-| CO₂ Sensor (MQ135) | Analog output for CO₂ concentration | A0 |
-| NeoPixel LED Strip (8-LED) | RGB output control | D6 |
-| Push Button Switch | Device ON/OFF control | D2 |
-| Power Supply | System VCC | 5V |
-| Ground | Common reference | GND |
+Install these via Arduino Library Manager.
 
----
+2. WiFi Configuration
+char ssid[] = "CE-Hub-Student";
+char pass[] = "casa-ce-gagarin-public-service";
 
-## Device Workflow
+3. MQTT Configuration
+const char* mqtt_server = "mqtt.cetools.org";
+const int mqtt_port = 1884;
+const char* mqtt_user = "student";
+const char* mqtt_pass = "ce2021-mqtt-forget-whale";
+String lightId = "28";
+String mqtt_topic = "student/CASA0014/luminaire/" + lightId;
 
-1. The **Arduino MKR WiFi 1010** module connects to the Internet via WiFi and establishes an **MQTT** connection, preparing to transmit data in real time.  
-2. The **CO₂ sensor (MQ135)** measures the concentration of carbon dioxide in the air and outputs the value in **ppm** through analog pin **A0**.  
-3. Upon receiving the sensor data, the **8-LED NeoPixel strip** displays a corresponding color based on the measured CO₂ level, with color transitions indicating air-quality changes.  
-4. The **Vespera light installation** synchronizes its color with the NeoPixel strip, updating dynamically as the LEDs change.  
-5. The entire process can be interrupted at any time using the **push-button switch** — pressing it turns the system off, and pressing again restarts the operation.  
-6. All data and system status messages, such as current **CO₂ concentration** and **WiFi/MQTT connection state**, are displayed on the **Serial Monitor** for real-time observation and debugging.
+4. Upload and Run
 
----
+Select board: Arduino MKR WiFi 1010
+
+Upload the sketch vespera.ino
+
+Open Serial Monitor (9600 baud) to view CO₂ readings and WiFi/MQTT status
+
+💡 Light Mode Logic
+CO₂ Level (ppm)	LED Color	Meaning
+< 40	🟢 Green	Fresh air
+40–50	🟩 Light Green	Normal
+50–60	🟨 Yellow	Mildly polluted
+60–70	🟧 Orange	Moderate
+70–80	🔴 Red	Unhealthy
+80+	💗 Pink / 🔵 Cyan	Severe
+
+Color steps change every 5 ppm, creating smooth transitions across the NeoPixel strip and the remote Vespera installation.
+
+🚀 Device Workflow
+
+The Arduino MKR WiFi 1010 connects to WiFi and establishes an MQTT connection.
+
+The MQ135 sensor measures CO₂ concentration and sends analog values via A0.
+
+The NeoPixel LED strip displays the corresponding color based on CO₂ level.
+
+The system publishes the same RGB data to Vespera through MQTT for color synchronization.
+
+The push button (D2) can turn the system on or off at any time.
+
+All readings (CO₂ ppm, WiFi status, MQTT connection) are displayed in the Serial Monitor.
+
+🎨 Colour Mapping Function
+void setLEDColor(float ppm) {
+  const int COLORS[][3] = {
+    {0, 255, 0}, {128, 255, 0}, {255, 255, 0}, {255, 128, 0},
+    {255, 0, 0}, {255, 0, 128}, {128, 0, 255}, {0, 128, 255}, {0, 255, 255}
+  };
+  int step = constrain((int)((ppm - 40) / 5), 0, 8);
+  int r = COLORS[step][0], g = COLORS[step][1], b = COLORS[step][2];
+  // Apply color to all NeoPixels and publish via MQTT
+}
+
+🧩 System Logic Diagram
+[MQ135 Sensor] → [Analog A0] → [CO₂ Value in ppm]
+           ↓
+  [Color Mapping Function]
+           ↓
+[NeoPixel LED Strip D6] → [Vespera MQTT Topic]
+           ↑
+      [Push Button D2] → [ON/OFF Control]
+
+
+📸 Physical Design & Output
+
+Enclosure: small housing box
+
+Display: Vespera lights mirror NeoPixel colors in real time
+
+Sensor Placement: MQ135 positioned inside enclosure with a small window open for accurate air sampling
+
+
+🧠 Author
+
+Yitong Wu
+MSc Electronic & Computer Engineering, HKUST
+📅 October 2025
+
+💬 “Bridging data, color, and atmosphere — an IoT system that visualizes the air we breathe.”
